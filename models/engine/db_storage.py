@@ -78,19 +78,20 @@ class DBStorage:
 
     def get(self, cls, id):
         '''
-        gets an object
+        retrieve an obj from the file storage.
         '''
-        obj_dict = models.storage.all(cls)
-        for k, v in obj_dict.items():
-            matchstring = cls + '.' + id
-            if k == matchstring:
-                return v
-
+        if cls in classes.value() and id and type(id) == str:
+            d_obj = self.all(cls)
+            for key, value in d_obj.items():
+                if key.split(".")[1] == id:
+                    return value
         return None
 
     def count(self, cls=None):
+        '''count'
+        count the number of obj
         '''
-        counts number of object
-        '''
-        obj_dict = models.storage.all(cls)
-        return len(obj_dict)
+        data = self.all(cls)
+        if cls in classes.values():
+            data = self.all(cls)
+        return len(data)
